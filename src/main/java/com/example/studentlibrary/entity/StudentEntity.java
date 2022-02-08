@@ -1,4 +1,4 @@
-package com.example.Studentlibrary.entity;
+package com.example.studentlibrary.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package com.example.Studentlibrary.dto;
+package com.example.studentlibrary.dto;
 
-import com.example.Studentlibrary.entity.BookEntity;
+import com.example.studentlibrary.entity.BookEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 public class Book {
 
     private String title;
-    private String AuthorName;
+    private String authorName;
 
     public static Book toModel(BookEntity bookEntity) {
         Book modelBook = new Book();

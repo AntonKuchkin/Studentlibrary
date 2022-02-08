@@ -1,6 +1,6 @@
-package com.example.Studentlibrary.dto;
+package com.example.studentlibrary.dto;
 
-import com.example.Studentlibrary.entity.StudentEntity;
+import com.example.studentlibrary.entity.StudentEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
