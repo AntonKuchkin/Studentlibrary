@@ -5,9 +5,11 @@ import com.example.studentlibrary.entity.StudentEntity;
 
 public interface StudentService {
 
-    Student createStudent(StudentEntity student);
+    Student createStudent(StudentEntity studentEntity);
 
-    Student getStudentById(int id);
+    Student getStudentById(int studentId);
 
-    Integer deleteStudent(int id);
+    void deleteStudent(int studentId);
+
+    Student upDateStudent(int studentId, StudentEntity studentEntity);
 }

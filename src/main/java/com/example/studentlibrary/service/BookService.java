@@ -5,14 +5,14 @@ import com.example.studentlibrary.entity.BookEntity;
 
 public interface BookService {
 
-    Book createBook(BookEntity book);
+    Book createBook(BookEntity bookEntity);
 
-    Book getBookById(int id);
+    Book getBookById(int bookId);
 
-    Integer deleteBook(int id);
+    void deleteBook(int bookId);
 
-    Book addBookStudent(BookEntity bookEntity, int studentId);
+    Book addBookStudent(int bookId, int studentId);
 
-    BookEntity bookByStudent(int BookId);
+    Book upDateBook(int bookId, BookEntity book);
 
 }

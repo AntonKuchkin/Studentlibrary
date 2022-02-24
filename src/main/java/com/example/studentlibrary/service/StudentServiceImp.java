@@ -12,24 +12,34 @@ import org.springframework.stereotype.Service;
 public class StudentServiceImp implements StudentService {
     private final StudentRepo studentRepo;
 
-    public Student createStudent(StudentEntity student) {
-        if (studentRepo.existsStudentEntitiesByNameStudent(student.getNameStudent())) {
+    public Student createStudent(StudentEntity studentEntity) {
+        if (studentRepo.existsStudentEntitiesByNameStudent(studentEntity.getNameStudent())) {
             throw new SecurityException("Студент уже зарегистрирован");
         } else {
-            return Student.toModel(student);
+            studentRepo.save(studentEntity);
+            return Student.createToModel(studentEntity);
         }
     }
 
-    public Student getStudentById(int id) {
-        studentRepo.findById(id).orElseThrow(() -> new StudentNotFoundExeption("Студент не существует"));
-        StudentEntity student = studentRepo.findById(id).get();
+    public Student getStudentById(int studentId) {
+        studentRepo.findById(studentId).orElseThrow(() -> new StudentNotFoundExeption("Студента с id=" + studentId + " не существует"));
+        StudentEntity student = studentRepo.findById(studentId).get();
         return Student.toModel(student);
     }
 
-    public Integer deleteStudent(int id) {
-        studentRepo.findById(id).orElseThrow(() -> new StudentNotFoundExeption("Студент не существует"));
-        studentRepo.deleteById(id);
-        return id;
+    public void deleteStudent(int studentId) {
+        studentRepo.findById(studentId).orElseThrow(() -> new StudentNotFoundExeption("Студента с id=" + studentId + " не существует"));
+        studentRepo.deleteById(studentId);
+    }
+
+    @Override
+    public Student upDateStudent(int studentId, StudentEntity studentEntity) {
+        studentRepo.findById(studentId).orElseThrow(() -> new StudentNotFoundExeption("Студента с id=" + studentId + " не существует"));
+        StudentEntity studentUpDate = studentRepo.findById(studentId).get();
+        studentUpDate.setNameStudent(studentEntity.getNameStudent());
+        studentUpDate.setFaculty(studentEntity.getFaculty());
+        studentRepo.save(studentUpDate);
+        return Student.createToModel(studentUpDate);
     }
 
 }

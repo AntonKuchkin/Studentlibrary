@@ -35,9 +35,10 @@ public class StudentEntity {
     public StudentEntity() {
     }
 
-    public StudentEntity(int id, String nameStudent, String faculty) {
+    public StudentEntity(int id, String nameStudent, String faculty, List<BookEntity> books) {
         this.id = id;
         this.nameStudent = nameStudent;
         this.faculty = faculty;
+        this.books = books;
     }
 }
