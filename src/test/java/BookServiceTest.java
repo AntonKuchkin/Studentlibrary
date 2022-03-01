@@ -1,8 +1,6 @@
 import com.example.studentlibrary.StudentlibraryApplication;
 import com.example.studentlibrary.dto.Book;
-import com.example.studentlibrary.dto.Student;
 import com.example.studentlibrary.entity.BookEntity;
-import com.example.studentlibrary.entity.StudentEntity;
 import com.example.studentlibrary.exception.BookNotFoundException;
 import com.example.studentlibrary.repository.BookRepo;
 import com.example.studentlibrary.repository.StudentRepo;
@@ -56,8 +54,9 @@ public class BookServiceTest {
         Assertions.assertThrows(BookNotFoundException.class, () -> bookService.createBook(bookEntity));
         cleanAll();
     }
+
     @Test
-    public void bookSearchByIdTest(){
+    public void bookSearchByIdTest() {
         BookEntity bookEntity = new BookEntity();
         bookEntity.setAuthor("author1");
         bookEntity.setTitle("title1");
@@ -66,14 +65,31 @@ public class BookServiceTest {
         Assertions.assertEquals(bookSearchById.getAuthorName(), bookEntity.getAuthor());
         Assertions.assertEquals(bookSearchById.getTitle(), bookEntity.getTitle());
     }
-//    @Test
-//    public void deletingBookByIbTest(){
-//        BookEntity bookEntity = new BookEntity();
-//        bookEntity.setAuthor("author1");
-//        bookEntity.setTitle("title1");
-//        Book savedBook = bookService.createBook(bookEntity);
-//        bookService.deleteBook(savedBook.getId());
-//        Assertions.assertEquals("NO_CONTENT",bookService.deleteBook(savedBook.getId()));
-//    }
+
+    @Test
+    public void deletingBookByIbTest() {
+        BookEntity bookEntity = new BookEntity();
+        bookEntity.setAuthor("author1");
+        bookEntity.setTitle("title1");
+        Book savedBook = bookService.createBook(bookEntity);
+        bookService.deleteBook(savedBook.getId());
+        Assertions.assertThrows(BookNotFoundException.class, () -> bookService.getBookById(savedBook.getId()));
+    }
+
+    @Test
+    public void updateBookTest() {
+        BookEntity bookEntityOne = new BookEntity();
+        bookEntityOne.setAuthor("author");
+        bookEntityOne.setTitle("title");
+        bookService.createBook(bookEntityOne);
+        BookEntity bookEntityTwo = new BookEntity();
+        bookEntityTwo.setAuthor("author2");
+        bookEntityTwo.setTitle("title2");
+        bookService.createBook(bookEntityTwo);
+        Book bookUpdate = bookService.updateBook(bookEntityOne.getId(), bookEntityTwo);
+        Assertions.assertEquals(bookUpdate.getId(), bookEntityOne.getId());
+        Assertions.assertEquals(bookUpdate.getAuthorName(), bookEntityTwo.getAuthor());
+        Assertions.assertEquals(bookUpdate.getTitle(), bookEntityTwo.getTitle());
+    }
 
 }

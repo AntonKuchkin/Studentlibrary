@@ -25,6 +25,7 @@ public class Student {
 
     public static Student toModel(StudentEntity studentEntity) {
         Student modelStudent = new Student();
+        modelStudent.setId(studentEntity.getId());
         modelStudent.setStudentName(studentEntity.getNameStudent());
         modelStudent.setFaculty(studentEntity.getFaculty());
         modelStudent.setBooks(studentEntity.getBooks().stream().map(Book::toModel).collect(Collectors.toList()));

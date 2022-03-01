@@ -11,5 +11,7 @@ public interface StudentService {
 
     void deleteStudent(int studentId);
 
-    Student upDateStudent(int studentId, StudentEntity studentEntity);
+    Student addBookStudent(int bookId, int studentId);
+
+    Student updateStudent(int studentId, StudentEntity studentEntity);
 }

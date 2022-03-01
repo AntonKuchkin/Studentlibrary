@@ -11,8 +11,6 @@ public interface BookService {
 
     void deleteBook(int bookId);
 
-    Book addBookStudent(int bookId, int studentId);
-
-    Book upDateBook(int bookId, BookEntity book);
+    Book updateBook(int bookId, BookEntity book);
 
 }

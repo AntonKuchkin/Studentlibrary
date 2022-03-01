@@ -1,12 +1,15 @@
 package com.example.studentlibrary.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +20,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "student")
 public class StudentEntity {
     @Id
@@ -28,17 +33,8 @@ public class StudentEntity {
     @Column(name = "faculty")
     private String faculty;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.EAGER) //почитать надо сделать @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<BookEntity> books;
 
-    public StudentEntity() {
-    }
-
-    public StudentEntity(int id, String nameStudent, String faculty, List<BookEntity> books) {
-        this.id = id;
-        this.nameStudent = nameStudent;
-        this.faculty = faculty;
-        this.books = books;
-    }
 }
