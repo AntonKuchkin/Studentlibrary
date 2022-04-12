@@ -33,7 +33,7 @@ public class StudentEntity {
     @Column(name = "faculty")
     private String faculty;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.EAGER) //почитать надо сделать @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<BookEntity> books;
 

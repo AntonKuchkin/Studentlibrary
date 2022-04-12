@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookServiceImpl implements BookService {
     private final BookRepo bookRepo;
-    private final StudentRepo studentRepo;
 
     @Override
     public Book createBook(BookEntity bookEntity) {

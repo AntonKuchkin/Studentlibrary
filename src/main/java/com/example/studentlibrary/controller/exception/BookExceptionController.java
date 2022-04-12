@@ -1,4 +1,4 @@
-package com.example.studentlibrary.controller;
+package com.example.studentlibrary.controller.exception;
 
 import com.example.studentlibrary.exception.BookNotFoundException;
 import org.springframework.http.HttpStatus;

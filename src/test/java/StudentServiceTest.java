@@ -1,7 +1,9 @@
 import com.example.studentlibrary.StudentlibraryApplication;
+import com.example.studentlibrary.dto.Book;
 import com.example.studentlibrary.dto.Student;
+import com.example.studentlibrary.entity.BookEntity;
 import com.example.studentlibrary.entity.StudentEntity;
-import com.example.studentlibrary.exception.StudentNotFoundExeption;
+import com.example.studentlibrary.exception.StudentNotFoundException;
 import com.example.studentlibrary.repository.BookRepo;
 import com.example.studentlibrary.repository.StudentRepo;
 import com.example.studentlibrary.service.BookService;
@@ -12,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = StudentlibraryApplication.class)
-public class StudentServiseTest {
+public class StudentServiceTest {
 
     @Autowired
     BookService bookService;
@@ -40,17 +42,17 @@ public class StudentServiseTest {
         Assertions.assertEquals(saveStudent.getStudentName(), studentEntity.getNameStudent());
         Assertions.assertEquals(saveStudent.getFaculty(), studentEntity.getFaculty());
     }
-//    @Test
-//    public void newStudentTestException(){
-//        StudentEntity studentEntity = new StudentEntity();
-//        studentEntity.setNameStudent("Vasia Pupkin");
-//        studentEntity.setFaculty("Prog");
-//        studentService.createStudent(studentEntity);
-//        StudentEntity failedStudentEntity = new StudentEntity();
-//        failedStudentEntity.setNameStudent("Vasia Pupkin");
-//        Assertions.assertThrows(StudentNotFoundExeption.class, ()->studentService.createStudent(studentEntity));
-//        cleanAll();
-//    }
+    @Test
+    public void newStudentTestException(){
+        StudentEntity studentEntity = new StudentEntity();
+        studentEntity.setNameStudent("Vasia Pupkin");
+        studentEntity.setFaculty("Prog");
+        studentService.createStudent(studentEntity);
+        StudentEntity failedStudentEntity = new StudentEntity();
+        failedStudentEntity.setNameStudent("Vasia Pupkin");
+        Assertions.assertThrows(StudentNotFoundException.class, ()->studentService.createStudent(studentEntity));
+        cleanAll();
+    }
 
     @Test
     public void studentSearchByIdTest(){
@@ -69,7 +71,7 @@ public class StudentServiseTest {
         studentEntity.setFaculty("Prog");
         Student saveStudent = studentService.createStudent(studentEntity);
         studentService.deleteStudent(saveStudent.getId());
-        Assertions.assertThrows(StudentNotFoundExeption.class,()->studentService.getStudentById(saveStudent.getId()));
+        Assertions.assertThrows(StudentNotFoundException.class,()->studentService.getStudentById(saveStudent.getId()));
     }
     @Test
     public void updateStudentTest(){
@@ -88,19 +90,19 @@ public class StudentServiseTest {
 
     }
 
-//    @Test
-//    public void addBookStudentTest (){
-//        BookEntity bookEntity = new BookEntity();
-//        bookEntity.setAuthor("author");
-//        bookEntity.setTitle("title");
-//        Book saveBook = bookService.createBook(bookEntity);
-//        StudentEntity studentEntity = new StudentEntity();
-//        studentEntity.setNameStudent("Pavlic Morozov");
-//        studentEntity.setFaculty("Prom");
-//        Student saveStudent = studentService.createStudent(studentEntity);
-//        Student student = studentService.addBookStudent(saveBook.getId(),saveStudent.getId());
-//        System.out.println(student.getBooks());
-//    }
+    @Test
+    public void addBookStudentTest (){
+        BookEntity bookEntity = new BookEntity();
+        bookEntity.setAuthor("author");
+        bookEntity.setTitle("title");
+        Book saveBook = bookService.createBook(bookEntity);
+        StudentEntity studentEntity = new StudentEntity();
+        studentEntity.setNameStudent("Pavlic Morozov");
+        studentEntity.setFaculty("Prom");
+        Student saveStudent = studentService.createStudent(studentEntity);
+        Student student = studentService.addBookStudent(saveBook.getId(),saveStudent.getId());
+        System.out.println(student.getBooks());
+    }
 
 
 }
